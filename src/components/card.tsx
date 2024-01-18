@@ -1,6 +1,19 @@
-export default function Card({ bgColor }: { bgColor: string }): JSX.Element {
+import { DraggableProvided } from 'react-beautiful-dnd';
+
+export default function Card({
+  bgColor,
+  provided,
+}: {
+  bgColor: string;
+  provided: DraggableProvided;
+}): JSX.Element {
   return (
-    <div className={`_card ${bgColor} p-4 rounded-lg`}>
+    <div
+      className={`_card ${bgColor} p-4 rounded-lg shadow-md`}
+      {...provided.dragHandleProps}
+      {...provided.draggableProps}
+      ref={provided.innerRef}
+    >
       <h3>Title</h3>
       <h4>Subtitle</h4>
       <p>
