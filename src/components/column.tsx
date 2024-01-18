@@ -1,25 +1,9 @@
+'use client';
 import Card from './card';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { Droppable, Draggable } from 'react-beautiful-dnd';
+import { DataType } from './main-content';
 
-const DATA = [
-  {
-    title: 'First',
-    bgColor: 'bg-red-200',
-    id: '1111',
-  },
-  {
-    title: 'Second',
-    bgColor: 'bg-cyan-200',
-    id: '2222',
-  },
-  {
-    title: 'Third',
-    bgColor: 'bg-green-200',
-    id: '3333',
-  },
-];
-
-export default function Column(): JSX.Element {
+export default function Column({ store }: { store: DataType[] }): JSX.Element {
   return (
     <Droppable droppableId='ROOT' type='group'>
       {(provided) => (
@@ -28,11 +12,12 @@ export default function Column(): JSX.Element {
           {...provided.droppableProps}
           ref={provided.innerRef}
         >
-          {DATA.map((item, id) => (
-            <Draggable key={id} draggableId={item.id} index={id}>
-              {(provided) => <Card key={id} props={item} provided={provided} />}
+          {store.map((item, index) => (
+            <Draggable key={item.id} draggableId={item.id} index={index}>
+              {(provided) => <Card props={item} provided={provided} />}
             </Draggable>
           ))}
+          {provided.placeholder}
         </div>
       )}
     </Droppable>
