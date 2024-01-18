@@ -3,15 +3,18 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 const DATA = [
   {
-    color: 'bg-red-200',
+    title: 'First',
+    bgColor: 'bg-red-200',
     id: '1111',
   },
   {
-    color: 'bg-cyan-200',
+    title: 'Second',
+    bgColor: 'bg-cyan-200',
     id: '2222',
   },
   {
-    color: 'bg-green-200',
+    title: 'Third',
+    bgColor: 'bg-green-200',
     id: '3333',
   },
 ];
@@ -27,9 +30,7 @@ export default function Column(): JSX.Element {
         >
           {DATA.map((item, id) => (
             <Draggable key={id} draggableId={item.id} index={id}>
-              {(provided) => (
-                <Card key={id} bgColor={item?.color} provided={provided} />
-              )}
+              {(provided) => <Card key={id} props={item} provided={provided} />}
             </Draggable>
           ))}
         </div>
