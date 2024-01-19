@@ -1,6 +1,6 @@
 'use client';
 
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, current } from '@reduxjs/toolkit';
 
 const initialState = [
   {
@@ -19,25 +19,33 @@ const initialState = [
     id: '3333erweirpweprp',
   },
 ];
-
 const dataSlice = createSlice({
   name: 'data',
   initialState,
   reducers: {
     addItem: (state, action) => {
-      state.push(action.payload);
+      // console.log('before', current(state));
+      const newState = [...state];
+      newState.push(action.payload);
+
+      return newState;
+
+      // console.log('after', current(state));
     },
-    removeItem: (state, action) => {
-      state = state.filter((item) => item.id !== action.payload);
-    },
+    // removeItem: (state, action) => {
+    //   state = state.filter((item) => item.id !== action.payload);
+    // },
     reorderItems: (state, action) => {
-      const { startIndex, endIndex } = action.payload;
-      const [removedItem] = state.splice(startIndex, 1);
-      state.splice(endIndex, 0, removedItem);
+      const { sourceIndex, destinationIndex } = action.payload;
+      const newState = [...state];
+
+      const [removedItem] = newState.splice(sourceIndex, 1);
+      newState.splice(destinationIndex, 0, removedItem);
+      return newState;
     },
   },
 });
 
-export const { addItem, removeItem, reorderItems } = dataSlice.actions;
+export const { addItem, reorderItems } = dataSlice.actions;
 
 export default dataSlice.reducer;

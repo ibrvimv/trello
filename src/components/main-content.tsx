@@ -9,12 +9,9 @@ export type DataType = {
   bgColor: string;
   id: string;
 };
-type PropType = {
-  items: DataType[];
-};
 
 export default function MainContent(): JSX.Element {
-  const DATA = useSelector((state: PropType) => state.items);
+  const DATA = useSelector((state: { data: DataType[] }) => state.data);
   const dispatch = useDispatch();
 
   const handleAddItem = () => {
@@ -38,13 +35,8 @@ export default function MainContent(): JSX.Element {
       return;
 
     if (type === 'group') {
-      // const reorderedStore = [...DATA];
       const sourceIndex = source.index;
       const destinationIndex = destination.index;
-
-      // const [removedStore] = reorderedStore.splice(sourceIndex, 1);
-      // reorderedStore.splice(destinationIndex, 0, removedStore);
-
       dispatch(reorderItems({ sourceIndex, destinationIndex }));
     }
   };
@@ -60,7 +52,7 @@ export default function MainContent(): JSX.Element {
         </div>
         <DragDropContext onDragEnd={handleDragDrop}>
           <div className='_columns flex gap-4 h-full'>
-            <Column store={DATA} />
+            {DATA && <Column store={DATA} />}
           </div>
         </DragDropContext>
       </div>

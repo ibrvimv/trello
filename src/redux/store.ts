@@ -5,7 +5,7 @@ import dataSlice from './data-slice';
 
 const store = configureStore({
   reducer: {
-    items: dataSlice,
+    data: dataSlice,
   },
 });
 
