@@ -5,7 +5,13 @@ import { DataType } from './main-content';
 import AddIcon from '@mui/icons-material/Add';
 import Modal from './modal';
 
+import { useSelector } from 'react-redux';
+
 export default function Column({ store }: { store: DataType[] }): JSX.Element {
+  const modal = useSelector(
+    (state: { modal: { visible: boolean } }) => state.modal
+  );
+
   return (
     <div className='_column p-4 rounded-lg flex flex-col bg-white shadow-md max-w-80'>
       <div className=''>
@@ -13,7 +19,7 @@ export default function Column({ store }: { store: DataType[] }): JSX.Element {
           <AddIcon fontSize='medium' /> Add
         </div>
       </div>
-      <Modal />
+      <Modal visible={modal.visible} />
       <Droppable droppableId='ROOT' type='group'>
         {(provided) => (
           <div

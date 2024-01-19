@@ -15,7 +15,7 @@ export default function RootLayout({
   return (
     <StoreProvider>
       <html lang='en'>
-        <body className='flex flex-col bg-bg '>{children}</body>
+        <body className='flex flex-col bg-bg'>{children}</body>
       </html>
     </StoreProvider>
   );
