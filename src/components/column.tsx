@@ -22,7 +22,7 @@ export default function Column({ store }: { store: DataType[] }): JSX.Element {
       <div className=''>
         <div
           onClick={handleModal}
-          className='hover:bg-green-200 transition-colors duration-150 cursor-pointer  flex items-center rounded-md w-fit px-4 py-2 mb-4'
+          className='hover:bg-green-400 bg-green-200 transition-colors duration-150 cursor-pointer  flex items-center rounded-md w-fit px-4 py-2 mb-4'
         >
           <AddIcon fontSize='medium' /> Add
         </div>
