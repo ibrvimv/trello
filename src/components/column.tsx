@@ -8,7 +8,7 @@ export default function Column({ store }: { store: DataType[] }): JSX.Element {
     <Droppable droppableId='ROOT' type='group'>
       {(provided) => (
         <div
-          className='_column p-4 rounded-lg flex flex-col  gap-4 bg-white shadow-md max-w-80'
+          className='_column p-4 rounded-lg flex flex-col  bg-white shadow-md max-w-80'
           {...provided.droppableProps}
           ref={provided.innerRef}
         >

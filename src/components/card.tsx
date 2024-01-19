@@ -12,9 +12,10 @@ export default function Card({
   props: CardType;
   provided: DraggableProvided;
 }): JSX.Element {
+  console.log(props);
   return (
     <div
-      className={`_card ${props.bgColor} p-4 rounded-lg shadow-md`}
+      className={`_card ${props?.bgColor} p-4 rounded-lg shadow-md mb-4`}
       {...provided.dragHandleProps}
       {...provided.draggableProps}
       ref={provided.innerRef}
