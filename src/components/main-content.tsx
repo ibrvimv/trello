@@ -42,7 +42,7 @@ export default function MainContent(): JSX.Element {
   };
 
   return (
-    <div className='_content-container h-full w-full'>
+    <div className='_content-container h-full w-full '>
       <div className='flex flex-col gap-4 h-full w-full'>
         <div className='flex items-center h-20 rounded-lg bg-white p-4 shadow-md shrink-0'>
           <h1 className='text-xl font-bold text-main'>
