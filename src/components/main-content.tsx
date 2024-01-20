@@ -7,7 +7,7 @@ import {
 } from 'react-beautiful-dnd';
 import Column from './column';
 import { useDispatch, useSelector } from 'react-redux';
-import { addItem, reorderClomuns, reorderItems } from '@/redux/data-slice';
+import { reorderClomuns, reorderItems } from '@/redux/data-slice';
 
 export type ItemType = {
   bgColor: string;
@@ -16,25 +16,19 @@ export type ItemType = {
   subtitle: string;
   text: string;
 };
+export type ModalType = {
+  visible: boolean;
+};
 export type ColumnType = {
   title: string;
   id: string;
   items: ItemType[];
+  modal: ModalType;
 };
 
 export default function MainContent(): JSX.Element {
   const columns = useSelector((state: { data: ColumnType[] }) => state.data);
   const dispatch = useDispatch();
-
-  const handleAddItem = () => {
-    dispatch(
-      addItem({
-        title: 'Forth',
-        bgColor: 'bg-red-200',
-        id: '4444Adsfdsfdsf',
-      })
-    );
-  };
 
   const handleDragDrop = (results: DropResult) => {
     const { source, destination, type } = results;
@@ -83,7 +77,6 @@ export default function MainContent(): JSX.Element {
           <h1 className='text-xl font-bold text-main'>
             Test React Drag and Drop - Trello. Author - Adlet Ibraimov
           </h1>
-          <button onClick={handleAddItem}>Add Item</button>
         </div>
         <DragDropContext onDragEnd={handleDragDrop}>
           <div className='_columns flex gap-4 h-full'>

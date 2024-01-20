@@ -22,6 +22,9 @@ const initialState = [
         bgColor: 'bg-cyan-200',
       },
     ],
+    modal: {
+      visible: false,
+    },
   },
   {
     id: 'Column-2',
@@ -42,6 +45,9 @@ const initialState = [
         bgColor: 'bg-green-200',
       },
     ],
+    modal: {
+      visible: false,
+    },
   },
 ];
 const dataSlice = createSlice({
@@ -62,6 +68,22 @@ const dataSlice = createSlice({
     // removeItem: (state, action) => {
     //   state = state.filter((item) => item.id !== action.payload);
     // },
+    openModal: (state, action) => {
+      const { columnId } = action.payload;
+      const columnIndex = state.findIndex((column) => column.id === columnId);
+
+      if (columnIndex !== -1) {
+        state[columnIndex].modal.visible = true;
+      }
+    },
+    closeModal: (state, action) => {
+      const { columnId } = action.payload;
+      const columnIndex = state.findIndex((column) => column.id === columnId);
+
+      if (columnIndex !== -1) {
+        state[columnIndex].modal.visible = false;
+      }
+    },
     reorderClomuns: (state, action) => {
       const { sourceIndex, destinationIndex } = action.payload;
       const newState = [...state];
@@ -106,6 +128,7 @@ const dataSlice = createSlice({
   },
 });
 
-export const { addItem, reorderClomuns, reorderItems } = dataSlice.actions;
+export const { addItem, reorderClomuns, reorderItems, openModal, closeModal } =
+  dataSlice.actions;
 
 export default dataSlice.reducer;

@@ -1,16 +1,14 @@
-import { addItem } from '@/redux/data-slice';
-import { closeModal } from '@/redux/modal-slice';
+import { addItem, closeModal } from '@/redux/data-slice';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { ItemType } from './main-content';
+import { useDispatch, useSelector } from 'react-redux';
+import { ItemType, ModalType } from './main-content';
 
-export default function Modal({
-  visible,
-  columnId,
-}: {
-  visible: Boolean;
-  columnId: string;
-}): JSX.Element {
+export default function Modal({ columnId }: { columnId: string }): JSX.Element {
+  const modal = useSelector(
+    (state: { data: { modal: ModalType; id: string }[] }) =>
+      state.data.find((column) => column.id === columnId)?.modal
+  );
+
   const [formData, setFormData] = useState<ItemType>({
     id: '',
     title: '',
@@ -22,7 +20,7 @@ export default function Modal({
   const dispatch = useDispatch();
 
   const handleClose = () => {
-    dispatch(closeModal());
+    dispatch(closeModal({ columnId }));
   };
 
   const handleInputChange = (
@@ -44,15 +42,21 @@ export default function Modal({
     };
 
     dispatch(addItem({ columnId, newItem }));
-
-    dispatch(closeModal());
+    setFormData({
+      id: '',
+      title: '',
+      subtitle: '',
+      text: '',
+      bgColor: '',
+    });
+    dispatch(closeModal({ columnId }));
   };
 
   return (
     <>
       <div
         className={`fixed inset-0 z-10 ${
-          visible
+          modal?.visible
             ? 'opacity-100 pointer-events-auto'
             : 'opacity-0 pointer-events-none'
         } transition-opacity duration-300`}

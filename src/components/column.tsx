@@ -1,11 +1,11 @@
 'use client';
 import Card from './card';
 import { Droppable, Draggable, DraggableProvided } from 'react-beautiful-dnd';
-import { ColumnType } from './main-content';
+import { ColumnType, ModalType } from './main-content';
 import AddIcon from '@mui/icons-material/Add';
 import Modal from './modal';
 import { useDispatch, useSelector } from 'react-redux';
-import { openModal } from '@/redux/modal-slice';
+import { openModal } from '@/redux/data-slice';
 
 export default function Column({
   column,
@@ -14,14 +14,12 @@ export default function Column({
   column: ColumnType;
   provided: DraggableProvided;
 }): JSX.Element {
-  const modal = useSelector(
-    (state: { modal: { visible: boolean } }) => state.modal
-  );
+  const columnId = column.id;
 
   const dispatch = useDispatch();
 
   const handleModal = () => {
-    dispatch(openModal());
+    dispatch(openModal({ columnId }));
   };
 
   return (
@@ -40,7 +38,7 @@ export default function Column({
           <AddIcon fontSize='medium' /> Add
         </div>
       </div>
-      <Modal columnId={column.id} visible={modal.visible} />
+      <Modal columnId={columnId} />
       <Droppable droppableId={column.id}>
         {(provided) => (
           <div
