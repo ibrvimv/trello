@@ -80,7 +80,7 @@ export default function MainContent(): JSX.Element {
         </div>
         <DragDropContext onDragEnd={handleDragDrop}>
           <div className='_columns flex gap-4 h-full'>
-            <Droppable droppableId='ROOT' type='group'>
+            <Droppable droppableId='ROOT' type='group' direction='horizontal'>
               {(provided) => (
                 <div
                   className='_columns-droppable flex w-full'
