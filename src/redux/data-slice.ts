@@ -60,7 +60,39 @@ const dataSlice = createSlice({
       newState.splice(destinationIndex, 0, removedItem);
       return newState;
     },
-    reorderItems: (state, action) => {},
+    reorderItems: (state, action) => {
+      const {
+        sourceColumnIndex,
+        destinationColumnIndex,
+        sourceIndex,
+        destinationIndex,
+        source,
+        destination,
+      } = action.payload;
+
+      const newSourceItems = [...state[sourceColumnIndex].items];
+      const newDestinationItems =
+        source.droppableId !== destination.droppableId
+          ? [...state[destinationColumnIndex].items]
+          : newSourceItems;
+
+      const [deletedItem] = newSourceItems.splice(sourceIndex, 1);
+      newDestinationItems.splice(destinationIndex, 0, deletedItem);
+
+      const newColumns = [...state];
+
+      newColumns[sourceColumnIndex] = {
+        ...state[sourceColumnIndex],
+        items: newSourceItems,
+      };
+
+      newColumns[destinationColumnIndex] = {
+        ...state[destinationColumnIndex],
+        items: newDestinationItems,
+      };
+
+      return newColumns;
+    },
   },
 });
 

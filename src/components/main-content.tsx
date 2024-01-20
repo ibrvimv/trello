@@ -7,7 +7,7 @@ import {
 } from 'react-beautiful-dnd';
 import Column from './column';
 import { useDispatch, useSelector } from 'react-redux';
-import { addItem, reorderClomuns } from '@/redux/data-slice';
+import { addItem, reorderClomuns, reorderItems } from '@/redux/data-slice';
 
 export type ItemType = {
   bgColor: string;
@@ -44,40 +44,34 @@ export default function MainContent(): JSX.Element {
     )
       return;
 
-    // columns
+    // columns - drag and drop
+
     if (type === 'group') {
       const sourceIndex = source.index;
       const destinationIndex = destination.index;
       dispatch(reorderClomuns({ sourceIndex, destinationIndex }));
     }
-    // items
-    const columnsSourceIndex = columns.findIndex(
+    // items - drag and drop
+
+    const sourceColumnIndex = columns.findIndex(
       (column) => column.id === source.droppableId
     );
-    const columnsDestinationIndex = columns.findIndex(
+    const destinationColumnIndex = columns.findIndex(
       (column) => column.id === destination.droppableId
     );
+    const sourceIndex = source.index;
+    const destinationIndex = destination.index;
 
-    const newSourceItems = [...columns[columnsSourceIndex].items];
-    const newDestinationItems =
-      source.droppableId !== destination.droppableId
-        ? [...columns[columnsDestinationIndex].items]
-        : newSourceItems;
-
-    const [deletedItem] = newSourceItems.splice(source.index, 1);
-    newDestinationItems.splice(destination.index, 0, deletedItem);
-
-    const newColumns = [...columns];
-
-    newColumns[columnsSourceIndex] = {
-      ...columns[columnsSourceIndex],
-      items: newSourceItems,
-    };
-
-    newColumns[columnsDestinationIndex] = {
-      ...columns[columnsDestinationIndex],
-      items: newDestinationItems,
-    };
+    dispatch(
+      reorderItems({
+        sourceColumnIndex,
+        destinationColumnIndex,
+        sourceIndex,
+        destinationIndex,
+        source,
+        destination,
+      })
+    );
   };
 
   return (

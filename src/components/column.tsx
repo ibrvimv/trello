@@ -31,10 +31,11 @@ export default function Column({
       {...provided.draggableProps}
       ref={provided.innerRef}
     >
-      <div className=''>
+      <div className='flex justify-between items-center mb-4'>
+        <div className='text-lg font-bold'>{column.title}</div>
         <div
           onClick={handleModal}
-          className='hover:bg-green-400 bg-green-200 transition-colors duration-150 cursor-pointer  flex items-center rounded-md w-fit px-4 py-2 mb-4'
+          className='hover:bg-green-400 bg-green-200 transition-colors duration-150 cursor-pointer  flex items-center rounded-md w-fit px-4 py-2 '
         >
           <AddIcon fontSize='medium' /> Add
         </div>
