@@ -4,19 +4,36 @@ import { createSlice, current } from '@reduxjs/toolkit';
 
 const initialState = [
   {
+    id: 'Column-1',
     title: 'First',
-    bgColor: 'bg-red-200',
-    id: '1111Adsfdsfdsf',
+    items: [
+      {
+        id: 'item-1',
+        title: 'Item-1',
+        bgColor: 'bg-red-200',
+      },
+      {
+        id: 'item-2',
+        title: 'Item-2',
+        bgColor: 'bg-cyan-200',
+      },
+    ],
   },
   {
+    id: 'Column-2',
     title: 'Second',
-    bgColor: 'bg-cyan-200',
-    id: '2222fdsfsfalfdslf',
-  },
-  {
-    title: 'Third',
-    bgColor: 'bg-green-200',
-    id: '3333erweirpweprp',
+    items: [
+      {
+        id: 'item-3',
+        title: 'Item-3',
+        bgColor: 'bg-red-200',
+      },
+      {
+        id: 'item-4',
+        title: 'Item-4',
+        bgColor: 'bg-green-200',
+      },
+    ],
   },
 ];
 const dataSlice = createSlice({
@@ -35,7 +52,7 @@ const dataSlice = createSlice({
     // removeItem: (state, action) => {
     //   state = state.filter((item) => item.id !== action.payload);
     // },
-    reorderItems: (state, action) => {
+    reorderClomuns: (state, action) => {
       const { sourceIndex, destinationIndex } = action.payload;
       const newState = [...state];
 
@@ -43,9 +60,10 @@ const dataSlice = createSlice({
       newState.splice(destinationIndex, 0, removedItem);
       return newState;
     },
+    reorderItems: (state, action) => {},
   },
 });
 
-export const { addItem, reorderItems } = dataSlice.actions;
+export const { addItem, reorderClomuns, reorderItems } = dataSlice.actions;
 
 export default dataSlice.reducer;
