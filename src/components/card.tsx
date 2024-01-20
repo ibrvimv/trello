@@ -3,6 +3,8 @@ import { DraggableProvided } from 'react-beautiful-dnd';
 type CardType = {
   bgColor: string;
   title: string;
+  subtitle: string;
+  text: string;
   id: string;
 };
 export default function Card({
@@ -20,12 +22,8 @@ export default function Card({
       ref={provided.innerRef}
     >
       <h3>{props.title}</h3>
-      <h4>Subtitle</h4>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius adipisci
-        odio quaerat at iure harum minima cumque est autem, officiis sint
-        possimus quasi!
-      </p>
+      <h4>{props.subtitle}</h4>
+      <p>{props.text}</p>
     </div>
   );
 }

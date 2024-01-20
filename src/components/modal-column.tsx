@@ -53,7 +53,6 @@ export default function ModalColumn(): JSX.Element {
     });
     dispatch(closeColumnModal());
   };
-  console.log(visible);
 
   return (
     <>

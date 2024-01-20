@@ -54,17 +54,45 @@ const dataSlice = createSlice({
   name: 'data',
   initialState,
   reducers: {
+    // addItem: (state, action) => {
+    //   // console.log('before', current(state));
+    //   // const { columnId, newItem } = action.payload;
+    //   // const columnIndex = state.findIndex((column) => column.id === columnId);
+
+    //   // if (columnIndex !== -1) {
+    //   //   state[columnIndex].items.push(newItem);
+    //   // }
+
+    //   // console.log('after', current(state));
+
+    // },
     addItem: (state, action) => {
-      // console.log('before', current(state));
       const { columnId, newItem } = action.payload;
       const columnIndex = state.findIndex((column) => column.id === columnId);
 
       if (columnIndex !== -1) {
-        state[columnIndex].items.push(newItem);
+        // Create a new state array to maintain immutability
+        const newState = [...state];
+
+        // Create a new items array for the target column
+        const newItems = [...newState[columnIndex].items, newItem];
+
+        // Update the target column with the new items array
+        newState[columnIndex] = {
+          ...newState[columnIndex],
+          items: newItems,
+        };
+        console.log('after', current(state));
+        // Return the new state
+        return newState;
       }
 
-      // console.log('after', current(state));
+      // Return the existing state if the column is not found
+      return state;
     },
+
+    // If columnIndex is -1, return the current state without any changes
+
     addColumn: (state, action) => {
       const { newItem } = action.payload;
       state.push(newItem);
