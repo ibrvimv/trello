@@ -5,7 +5,7 @@ import LocalMallIcon from '@mui/icons-material/LocalMall';
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 export default function Menu(): JSX.Element {
   return (
-    <div className='_menu flex flex-col justify-between items-center  p-4 rounded-lg bg-white h-full w-20 shadow-md'>
+    <div className='_menu flex  flex-col justify-between items-center  p-4 rounded-lg bg-white w-20 shadow-md'>
       <div className='flex flex-col items-center gap-8 '>
         <MenuIcon
           fontSize='large'

@@ -65,6 +65,10 @@ const dataSlice = createSlice({
 
       // console.log('after', current(state));
     },
+    addColumn: (state, action) => {
+      const { newItem } = action.payload;
+      state.push(newItem);
+    },
     // removeItem: (state, action) => {
     //   state = state.filter((item) => item.id !== action.payload);
     // },
@@ -128,7 +132,13 @@ const dataSlice = createSlice({
   },
 });
 
-export const { addItem, reorderClomuns, reorderItems, openModal, closeModal } =
-  dataSlice.actions;
+export const {
+  addItem,
+  reorderClomuns,
+  reorderItems,
+  openModal,
+  closeModal,
+  addColumn,
+} = dataSlice.actions;
 
 export default dataSlice.reducer;

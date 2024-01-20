@@ -35,7 +35,7 @@ export default function Column({
           onClick={handleModal}
           className='hover:bg-green-400 bg-green-200 transition-colors duration-150 cursor-pointer  flex items-center rounded-md w-fit px-4 py-2 '
         >
-          <AddIcon fontSize='medium' /> Add
+          <AddIcon fontSize='medium' /> Add Item
         </div>
       </div>
       <Modal columnId={columnId} />
