@@ -13,6 +13,8 @@ export type ItemType = {
   bgColor: string;
   id: string;
   title: string;
+  subtitle: string;
+  text: string;
 };
 export type ColumnType = {
   title: string;

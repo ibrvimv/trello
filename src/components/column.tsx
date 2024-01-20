@@ -40,7 +40,7 @@ export default function Column({
           <AddIcon fontSize='medium' /> Add
         </div>
       </div>
-      <Modal visible={modal.visible} />
+      <Modal columnId={column.id} visible={modal.visible} />
       <Droppable droppableId={column.id}>
         {(provided) => (
           <div

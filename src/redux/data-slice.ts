@@ -10,11 +10,15 @@ const initialState = [
       {
         id: 'item-1',
         title: 'Item-1',
+        subtitle: 'subtitle',
+        text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius adipisci odio quaerat at iure harum minima cumque est autem, officiis sint possimus quasi!',
         bgColor: 'bg-red-200',
       },
       {
         id: 'item-2',
         title: 'Item-2',
+        subtitle: 'subtitle',
+        text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius adipisci odio quaerat at iure harum minima cumque est autem, officiis sint possimus quasi!',
         bgColor: 'bg-cyan-200',
       },
     ],
@@ -26,11 +30,15 @@ const initialState = [
       {
         id: 'item-3',
         title: 'Item-3',
+        subtitle: 'subtitle',
+        text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius adipisci odio quaerat at iure harum minima cumque est autem, officiis sint possimus quasi!',
         bgColor: 'bg-red-200',
       },
       {
         id: 'item-4',
         title: 'Item-4',
+        subtitle: 'subtitle',
+        text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius adipisci odio quaerat at iure harum minima cumque est autem, officiis sint possimus quasi!',
         bgColor: 'bg-green-200',
       },
     ],
@@ -42,10 +50,12 @@ const dataSlice = createSlice({
   reducers: {
     addItem: (state, action) => {
       // console.log('before', current(state));
-      const newState = [...state];
-      newState.push(action.payload);
+      const { columnId, newItem } = action.payload;
+      const columnIndex = state.findIndex((column) => column.id === columnId);
 
-      return newState;
+      if (columnIndex !== -1) {
+        state[columnIndex].items.push(newItem);
+      }
 
       // console.log('after', current(state));
     },
