@@ -38,7 +38,7 @@ export default function Column({
           <AddIcon fontSize='medium' /> Add Item
         </div>
       </div>
-      <Modal columnId={columnId} />
+      <Modal column={column} />
       <Droppable droppableId={column.id}>
         {(provided) => (
           <div

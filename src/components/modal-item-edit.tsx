@@ -1,29 +1,24 @@
-import { addItem, closeModal } from '@/redux/data-slice';
+import { addItem, closeModal, updateItem } from '@/redux/data-slice';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ColumnType, ItemType, ModalType } from './main-content';
 
-export default function Modal({ column }: { column: ColumnType }): JSX.Element {
-  const columnId = column.id;
+type CloseChildFunction = () => void;
 
-  const modal = useSelector(
-    (state: { data: { modal: ModalType; id: string }[] }) =>
-      state.data.find((column) => column.id === columnId)?.modal
-  );
-
+export default function ModalEditItem({
+  closeEditModal,
+  visible,
+  props,
+}: {
+  closeEditModal: CloseChildFunction;
+  props: ItemType;
+  visible: boolean;
+}): JSX.Element {
   const [formData, setFormData] = useState<ItemType>({
-    id: '',
-    title: '',
-    subtitle: '',
-    text: '',
-    bgColor: '',
+    ...props,
   });
 
   const dispatch = useDispatch();
-
-  const handleClose = () => {
-    dispatch(closeModal({ columnId }));
-  };
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -34,31 +29,24 @@ export default function Modal({ column }: { column: ColumnType }): JSX.Element {
       [name]: value,
     }));
   };
-  const handleAddItem = () => {
+  const handleUpdateItem = () => {
     const newItem = {
-      id: `item-${Date.now()}`,
+      id: props.id,
       title: formData.title,
       subtitle: formData.subtitle,
       text: formData.text,
       bgColor: 'bg-blue-200',
     };
 
-    dispatch(addItem({ columnId, newItem }));
-    setFormData({
-      id: '',
-      title: '',
-      subtitle: '',
-      text: '',
-      bgColor: '',
-    });
-    dispatch(closeModal({ columnId }));
+    dispatch(updateItem({ newItem }));
+    closeEditModal();
   };
 
   return (
     <>
       <div
         className={`fixed inset-0 z-10 ${
-          modal?.visible
+          visible
             ? 'opacity-100 pointer-events-auto'
             : 'opacity-0 pointer-events-none'
         } transition-opacity duration-300`}
@@ -66,9 +54,9 @@ export default function Modal({ column }: { column: ColumnType }): JSX.Element {
         <div className='absolute inset-0 bg-black opacity-40'></div>
         <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[400px] flex flex-col p-4 bg-white shadow-lg rounded-lg transition-transform duration-300 transform'>
           <div className='flex justify-between items-center mb-4'>
-            <div className='text-lg font-bold text-main'>Add new item</div>
+            <div className='text-lg font-bold text-main'>Update item</div>
             <div
-              onClick={handleClose}
+              onClick={closeEditModal}
               className='px-4 py-2 rounded-md cursor-pointer w-fit bg-red-200 hover:bg-red-400 transition-colors duration-150'
             >
               X
@@ -101,10 +89,10 @@ export default function Modal({ column }: { column: ColumnType }): JSX.Element {
             />
           </div>
           <div
-            onClick={handleAddItem}
+            onClick={handleUpdateItem}
             className='bg-green-200 flex items-center px-4 py-2 justify-center hover:bg-green-400 transition-colors duration-150 rounded-lg'
           >
-            Add Item
+            Update Item
           </div>
         </div>
       </div>

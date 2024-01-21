@@ -32,7 +32,7 @@ export type ColumnType = {
 export default function MainContent(): JSX.Element {
   const columns = useSelector((state: { data: ColumnType[] }) => state.data);
   const dispatch = useDispatch();
-  console.log(columns);
+  // console.log(columns);
 
   const handleOpenColumnModal = () => {
     dispatch(openColumnModal());

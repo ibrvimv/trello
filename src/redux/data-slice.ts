@@ -1,6 +1,7 @@
 'use client';
 
 import { createSlice, current } from '@reduxjs/toolkit';
+import { produce } from 'immer';
 
 const initialState = [
   {
@@ -82,7 +83,7 @@ const dataSlice = createSlice({
           ...newState[columnIndex],
           items: newItems,
         };
-        console.log('after', current(state));
+        // console.log('after', current(state));
         // Return the new state
         return newState;
       }
@@ -91,7 +92,52 @@ const dataSlice = createSlice({
       return state;
     },
 
-    // If columnIndex is -1, return the current state without any changes
+    updateItem: (state, action) => {
+      const { newItem } = action.payload;
+
+      const columnIndex = state.findIndex(
+        (column) =>
+          column.items.findIndex((item) => item.id === newItem.id) !== -1
+      );
+
+      if (columnIndex !== -1) {
+        return produce(state, (draft) => {
+          const itemIndex = draft[columnIndex].items.findIndex(
+            (item) => item.id === newItem.id
+          );
+
+          if (itemIndex !== -1) {
+            // Update the item with the new data
+            draft[columnIndex].items[itemIndex] = { ...newItem };
+          }
+        });
+      }
+
+      // Return the existing state if the item is not found
+      return state;
+      // const { newItem } = action.payload;
+
+      // const columnIndex = state.findIndex(
+      //   (column) =>
+      //     column.items.findIndex((item) => item.id === newItem.id) !== -1
+      // );
+
+      // if (columnIndex !== -1) {
+      //   const newState = [...state];
+      //   const itemIndex = newState[columnIndex].items.findIndex(
+      //     (item) => item.id === newItem.id
+      //   );
+
+      //   if (itemIndex !== -1) {
+      //     // Update the item with the new data
+      //     newState[columnIndex].items[itemIndex] = { ...newItem };
+      //     return newState;
+      //   }
+      // }
+
+      // // Return the existing state if the item is not found
+      // return state;
+    },
 
     addColumn: (state, action) => {
       const { newItem } = action.payload;
@@ -167,6 +213,7 @@ export const {
   openModal,
   closeModal,
   addColumn,
+  updateItem,
 } = dataSlice.actions;
 
 export default dataSlice.reducer;
