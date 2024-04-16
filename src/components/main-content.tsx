@@ -82,8 +82,10 @@ export default function MainContent(): JSX.Element {
       <div className='flex flex-col gap-4 h-full w-full'>
         <div className='flex justify-between items-center h-20 rounded-lg bg-white p-4 shadow-md shrink-0'>
           <h1 className='text-xl font-bold text-main'>
-            Test React Drag and Drop - Trello. Author - Adlet Ibraimov
-            +77059000489
+            Test React Drag and Drop{' '}
+            <a target='_blank' href='https://adlet-ibraimov.vercel.app/'>
+              Click me to contact!
+            </a>
           </h1>
           <div
             onClick={handleOpenColumnModal}
