@@ -9,6 +9,7 @@ import Column from './column';
 import { useDispatch, useSelector } from 'react-redux';
 import { reorderClomuns, reorderItems } from '@/redux/data-slice';
 import AddIcon from '@mui/icons-material/Add';
+import Phone from '@mui/icons-material/Phone';
 import { openColumnModal } from '@/redux/column-modal-slice';
 import ModalColumn from './modal-column';
 
@@ -82,17 +83,23 @@ export default function MainContent(): JSX.Element {
       <div className='flex flex-col gap-4 h-full w-full'>
         <div className='flex justify-between items-center h-20 rounded-lg bg-white p-4 shadow-md shrink-0'>
           <h1 className='text-xl font-bold text-main'>
-            Test React Drag and Drop -{' '}
-            <a target='_blank' href='https://adlet-ibraimov.vercel.app/'>
-              Click me to contact!
-            </a>
+            Test React Drag and Drop
           </h1>
-          <div
-            onClick={handleOpenColumnModal}
-            className='p-4 rounded-lg bg-cyan-200 hover:bg-cyan-400 transition-colors duration-150 cursor-pointer'
-          >
-            <AddIcon fontSize='medium' />
-            Add Column
+          <div className=' flex gap-4'>
+            <a
+              target='_blank'
+              className='p-4 rounded-lg bg-yellow-200 animate-bounce hover:bg-yellow-400 transition-colors duration-150 cursor-pointer'
+              href='https://adlet-ibraimov.vercel.app/'
+            >
+              <Phone /> CONTACT
+            </a>
+            <div
+              onClick={handleOpenColumnModal}
+              className='p-4 rounded-lg bg-cyan-200 hover:bg-cyan-400 transition-colors duration-150 cursor-pointer'
+            >
+              <AddIcon fontSize='medium' />
+              Add Column
+            </div>
           </div>
         </div>
         <ModalColumn />
